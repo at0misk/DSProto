@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 	# end
 	@json = JSON.parse @json['data']
 	@json['categories'].each do |val|
+		puts val['name']
 		if val.is_a?(Hash)
 			val.each do |key, val|
 				# @returnHash[key] = val
@@ -35,4 +36,17 @@ class UsersController < ApplicationController
 	# 	end
 	# end
   end
+  def create
+  	@user = User.new(user_params)
+  	if @user.save
+  		session[:user_id] = @user.id
+  		redirect_to '/categories'
+  	else
+  		flash[:errors] = @user.errors.full_messages
+  		redirect_to :back
+  	end
+  end
+  	def user_params
+  	params.require(:user).permit(:first, :last, :email, :office, :city, :state, :password, :phone) 
+  	end
 end

@@ -211,9 +211,7 @@ body {
 	background: #337ab7;
 	color: white;
 }
-.signup a{
-	font-size: 0.99em !important;
-}
+
 
 
 
@@ -222,21 +220,37 @@ body {
 </head>
 <body>
 <!-- multistep form -->
-<form id="msform" action="/login" method="post">
+<form id="msform" action="/signup" method="post">
+		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 	<!-- progressbar -->
+	<ul id="progressbar">
+		<li class="active">Account Setup</li>
+		<li>Location</li>
+		<li>Personal Details</li>
+	</ul>
 	<!-- fieldsets -->
 	<fieldset>
-		<h2 class="fs-title">Dental Squid</h2>
-		<h3 class="fs-subtitle">Login</h3>
-		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-		<input type="text" name="email" placeholder="Email" />
-		<input type="password" name="password" placeholder="Password" />
-		<div class="checkbox">
-		  <label><input type="checkbox" value="">Remember Me</label>
-		</div>
-		<input type="submit" name="submit" class="submit action-button" value="Login" />
-		<div class="signup">
-		</div>
-		<a href="/signup">Don't have an account?  Sign up now!</a>
+		<h2 class="fs-title">Create your account</h2>
+		<h3 class="fs-subtitle">Basic Info</h3>
+		<input type="text" name="user[email]" placeholder="Email" />
+		<input type="password" name="user[password]" placeholder="Password" />
+		<input type="password" name="user[password_confirmation]" placeholder="Confirm Password" />
+		<input type="button" name="next" class="next action-button" value="Next" />
+	</fieldset>
+	<fieldset>
+		<h2 class="fs-title">Personal Info</h2>
+		<input type="text" name="user[first]" placeholder="First Name" />
+		<input type="text" name="user[last]" placeholder="Last Name" />
+		<input type="text" name="user[phone]" placeholder="Phone" />
+		<input type="button" name="previous" class="previous action-button" value="Previous" />
+		<input type="button" name="next" class="next action-button" value="Next" />
+	</fieldset>
+	<fieldset>
+		<h2 class="fs-title">Location</h2>
+		<input type="text" name="user[office]" placeholder="Dental Office" />
+		<input type="text" name="user[city]" placeholder="City" />
+		<input type="text" name="user[state]" placeholder="State" />
+		<input type="button" name="previous" class="previous action-button" value="Previous" />
+		<input type="submit" name="submit" class="submit action-button" value="Submit" />
 	</fieldset>
 </form>
