@@ -18,6 +18,7 @@ class CategoriesController < ApplicationController
 		end
 	end
 	@j = @json
+	@jcats = @json
 	end
   def view
   	puts params['name']
@@ -40,6 +41,15 @@ class CategoriesController < ApplicationController
 		# 	end
 		# end
 	end
+  	@returnHashCats = {}
+	@responseCats = RestClient.post 'http://dentalsquid.proscrapers.com/api/get-categories', {token: '90c3562d7d962f37bee2185c2b871fd4d1cfa7f2129617033f14d9c1b2b96730'}
+	@jsonCats = JSON.parse @responseCats
+	# puts @json
+	# if @json.is_a?(Hash)
+	# 	puts 'hash'
+	# end
+	@jsonCats = JSON.parse @jsonCats['data']
+	@jcats = @jsonCats
 	@j = @json
   end
 end
