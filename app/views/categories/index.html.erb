@@ -1,0 +1,22 @@
+<style>
+	td{
+		padding: 1%;
+	}
+</style>
+<div class="table-responsive">
+	<table class="table-striped">
+		<tbody>
+			<tr>
+			<% i = 1 %>
+			<% @j['categories'].each do |val| %>
+			<td><a href='/categories/<%= val['name'] %>'><%= val['name'] %></a></td>
+			<% if i == 0 %>
+			<% elsif i % 5 == 0 %>
+				</tr>
+				<tr>
+			<% end %>
+			<% i += 1 %>
+			<% end %>
+		</tbody>
+	</table>
+</div>
