@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   post 'signup' => 'users#create'
   get 'categories' => 'categories#index'
   get 'categories/:name/' => 'categories#view'
-  get 'products/:name/:id' => 'products#view'
+  get 'products/:id/:name' => 'products#view'
   post 'login' => 'sessions#login'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

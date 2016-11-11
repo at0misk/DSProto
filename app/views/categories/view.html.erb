@@ -9,7 +9,8 @@
 			<tr>
 			<% i = 1 %>
 			<% @j['products'].each do |val| %>
-			<td><a href='/products/<%= val['name'] %>'><%= val['name'] %></a></td>
+			<% name = val['name'].tr('/////', '') %>
+			<td><a href='/products/<%= val['product_code'] %>/<%= name %>'><%= val['name'] %></a></td>
 			<% if i == 0 %>
 			<% elsif i % 5 == 0 %>
 				</tr>

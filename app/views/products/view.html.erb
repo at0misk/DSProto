@@ -1,1 +1,71 @@
-<!-- products for a specific category -->
+<style>
+	td{
+		padding: 1%;
+	}
+	.cart{
+		width: 345px;
+	}
+	.green{
+		color: green;
+	}
+</style>
+<% @viewPrices.each do |key, val| %>
+<% if val.is_a?(String) %>
+<h1><%= val %></h1>
+<% end %>
+<% end %>
+<% min = @viewPrices["0"]["price"] %>
+<% @viewPrices.each do |key, val| %>
+<% if val.is_a?(Hash) %>
+<% val.each do |key, val| %>
+<% if key == 'price' %>
+	<% if val.to_i < min.to_i %>
+		<% min = val %>
+	<% end %>
+<% end %>
+<% end %>
+<% end %>
+<% end %>
+<div class="table-responsive">
+	<table class="table-striped">
+		<thead>
+			<tr>
+				<td>Manufacturer</td>
+				<td>Price</td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+				<% @viewPrices.each do |key, val| %>
+				<tr>
+				<% if val.is_a?(Hash) %>
+				<% val.each do |key, val| %>
+					<% if key == 'site_id' %>
+						<% if val == '1' %>
+							<td>Patterson Dental</td>
+						<% elsif val == '2' %>
+							<td>Safco Dental</td>
+						<% elsif val == '3' %>
+							<td>Darby Dental</td>
+						<% elsif val == '4' %>
+							<td>Henry Schein</td>
+						<% elsif val == '5' %>
+							<td>Benco Dental</td>
+						<% end %>
+					<% elsif key == 'price' %>
+						<% if val == min %>
+						<td class="green">$<%= val %></td>
+						<% else %>
+						<td>$<%= val %></td>
+						<% end %>
+					<% elsif key == 'product_id' %>
+					<% else %>
+					<% end %>
+				<% end %>
+					<td class="cart">Quantity: <input type="number" val="<%= val['product_id'] %>"><button>Add To Cart</button></td>
+				<% end %>
+				</tr>
+				<% end %>
+		</tbody>
+	</table>
+</div>
