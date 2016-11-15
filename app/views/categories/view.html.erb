@@ -14,6 +14,9 @@ input{
 	height: 750px;
 	overflow: scroll;
 }
+.productDiv::-webkit-scrollbar{
+  display: none;
+}
 </style>
 <div ng-controller='productsController'>
 	Search Products: <input type="text" ng-model="product_filter">
