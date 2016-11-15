@@ -51,6 +51,7 @@ body {
 </style>
 </head>
 <body>
+<% if session[:user_id] %>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -123,6 +124,7 @@ body {
       </div>
 			</div>
 		</div>
+<% end %>
 <% if flash[:errors] %>
 <div id="errors">
 	<% flash[:errors].each do |e| %>
@@ -130,9 +132,13 @@ body {
 	<% end %>
 </div>
 <% end %>
+<% if session[:user_id] %>
 		<div class="col-md-10">
+<% end %>
 <%= yield %>
+<% if session[:user_id] %>
 		</div>
+<% end %>
 	</div>
 </div>
 

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'users#index'
   root 'sessions#about'
+  get 'about' => 'sessions#about'
   get 'signup' => 'sessions#new'
   post 'signup' => 'users#create'
   get 'categories' => 'categories#index'
