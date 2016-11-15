@@ -8,7 +8,7 @@
 		<tbody>
 			<tr>
 			<% i = 1 %>
-			<% @j['categories'].each do |val| %>
+			<% @j.each do |val| %>
 			<td><a href='/categories/<%= val['name'] %>'><%= val['name'] %></a></td>
 			<% if i == 0 %>
 			<% elsif i % 5 == 0 %>

@@ -2,22 +2,26 @@
 	td{
 		padding: 1%;
 	}
+.productnav li{
+    margin: 1% 0;
+	display: block;
+}
+input{
+  display: block;
+}
+.productDiv{
+    margin-top: .35%;
+	height: 750px;
+	overflow: scroll;
+}
 </style>
-<div class="table-responsive">
-	<table class="table-striped">
-		<tbody>
-			<tr>
-			<% i = 1 %>
-			<% @j['products'].each do |val| %>
-			<% name = val['name'].tr('/////', '') %>
-			<td><a href='/products/<%= val['product_code'] %>/<%= name %>'><%= val['name'] %></a></td>
-			<% if i == 0 %>
-			<% elsif i % 5 == 0 %>
-				</tr>
-				<tr>
-			<% end %>
-			<% i += 1 %>
-			<% end %>
-		</tbody>
-	</table>
+<div ng-controller='productsController'>
+	Search Products: <input type="text" ng-model="product_filter">
+	<div class="productDiv">
+	<ul class="productnav">
+		<li ng-repeat="product in products | filter:product_filter">
+		<a href='/products/{{product.product_code}}/{{product.name}}'>{{ product.name }}</a>
+		</li>
+	</ul>
+	</div>
 </div>

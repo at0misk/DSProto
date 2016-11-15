@@ -34,4 +34,6 @@ class SessionsController < ApplicationController
 	  		redirect_to :back
 	  	end
   end
+  def about
+  end
 end

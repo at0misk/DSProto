@@ -2,8 +2,10 @@
 <html>
 <head>
   <title>DentalSquid</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js" %>
+    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.min.js" %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
@@ -42,13 +44,13 @@ body {
 	display: block;
 }
 .catnav{
+  margin-top: 2%;
 	height: 750px;
 	overflow: scroll;
 }
 </style>
 </head>
 <body>
-<% if session[:user_id] %>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -109,16 +111,18 @@ body {
 </nav>
 <div class="container">
 	<div class="row">
-		<div class="col-md-2 catnav">
-			<ul>
-				<% if @jcats %>
-				<% @jcats['categories'].each do |val| %>
-				<li><a href='/categories/<%= val['name'] %>'><%= val['name'] %></a></li>
-				<% end %>
-				<% end %>
-			</ul>
+		<div class="col-md-2">
+			<div ng-controller='catsController'>
+				Search Categories: <input type="text" ng-model="cat_filter">
+        <div class="catnav">
+				<ul>
+					<li ng-repeat="cat in cats | filter:cat_filter">
+					<a href='/categories/{{cat.name}}'>{{ cat.name }}</a>
+					</li>
+				</ul>
+      </div>
+			</div>
 		</div>
-<% end %>
 <% if flash[:errors] %>
 <div id="errors">
 	<% flash[:errors].each do |e| %>
