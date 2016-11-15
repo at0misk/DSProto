@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   get 'cats' => 'categories#partial'
   get 'productsNg' => 'categories#productsNg'
+  get 'learn' => 'sessions#learn'
+  get 'pricing' => 'sessions#pricing'
+  get 'contact' => 'sessions#contact'
+  get 'users/edit' => 'users#edit'
+  get 'cart' => 'sessions#cart'
   get 'sessions/new'
 
   get 'sessions/index'

@@ -49,4 +49,6 @@ class UsersController < ApplicationController
   	def user_params
   	params.require(:user).permit(:first, :last, :email, :office, :city, :state, :password, :phone) 
   	end
+  	def edit
+  	end
 end

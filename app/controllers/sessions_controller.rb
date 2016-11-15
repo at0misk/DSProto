@@ -18,4 +18,12 @@ class SessionsController < ApplicationController
   		redirect_to '/sessions/index'
   	end
   end
+  def learn
+  end
+  def pricing
+  end
+  def contact
+  end
+  def cart
+  end
 end
