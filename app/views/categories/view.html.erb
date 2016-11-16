@@ -17,14 +17,28 @@ input{
 .productDiv::-webkit-scrollbar{
   display: none;
 }
+.productnav img{
+	height: 100px;
+	width: 100px;
+}
 </style>
 <div ng-controller='productsController'>
 	Search Products: <input type="text" ng-model="product_filter">
 	<div class="productDiv">
-	<ul class="productnav">
-		<li ng-repeat="product in products | filter:product_filter">
-		<a href='/products/{{product.product_code}}/{{product.name}}'>{{ product.name }}</a>
-		</li>
-	</ul>
+	<table class="productnav">
+		<thead>
+			<tr>
+				<td>Image</td>
+				<td>Product</td>
+				<td>Manufacturer Number</td>
+				<td>Manufacturer</td>
+			</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="product in products | filter:product_filter">
+		<td><img src="http://dentalsquid.proscrapers.com/assets/uploads/4/{{product.product_code}}.jpg" onerror="this.onerror=null;this.src='http://dentalsquid.proscrapers.com/assets/uploads/1/{{product.product_code}}.jpg';"></td><td><a href='/products/{{product.product_code}}/{{product.name}}'>{{ product.name }}</a></td><td>{{ product.manufacturer_number }}</td><td>{{ product.manufacturer }}</td>
+		</tr>
+		</tbody>
+	</table>
 	</div>
 </div>

@@ -49,6 +49,8 @@ class ProductsController < ApplicationController
 				puts @jsonPrices['data']
 				finalParams = {}
 				@jsonPrices['data'].each do |val|
+					session[:man] = val['manufacturer']
+					session[:num] = val['manufacturer_number']
 					puts "HERE IS K!!!"
 					finalParams['product_id'] = "#{val['product_id']}"
 					finalParams['site_id'] = "#{val['site_id']}"
