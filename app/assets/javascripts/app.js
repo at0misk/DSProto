@@ -44,6 +44,15 @@ app.factory("productFactory", function($http){
     }
     return factory;
 })
+app.factory("allProductFactory", function($http){
+    var factory = {};
+    factory.index = function(callback) {
+        $http.get("/productsAll").success(function(output){
+            callback(output);
+        })
+    }
+    return factory;
+})
 app.controller("catsController", function($rootScope, catFactory){
     catFactory.index(function(json){
         $rootScope.cats = json;
@@ -51,6 +60,11 @@ app.controller("catsController", function($rootScope, catFactory){
 })
 app.controller("productsController", function($rootScope, productFactory){
     productFactory.index(function(json){
+        $rootScope.products = json;
+    })
+})
+app.controller("allProductsController", function($rootScope, allProductFactory){
+    allProductFactory.index(function(json){
         $rootScope.products = json;
     })
 })

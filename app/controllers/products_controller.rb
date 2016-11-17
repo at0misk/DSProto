@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
 	def view
+		@man = params['man']
+		@num = params['num']
 		@viewPrices = {}
 		@priceParams = {}
 	  	@queryString = params['id'].to_s
@@ -91,5 +93,26 @@ class ProductsController < ApplicationController
 		@jsonCats = JSON.parse @jsonCats['data']
 		@jcats = @jsonCats
 		@viewPrices
+	end
+	def index
+	end
+	def all
+  	puts session[:productName]
+   	@returnHash = {}
+	@response = RestClient::Request.execute(:method => :post, :url => 'http://dentalsquid.proscrapers.com/api/get-listings', :payload => {token: '90c3562d7d962f37bee2185c2b871fd4d1cfa7f2129617033f14d9c1b2b96730'}, :timeout => 90000000)
+	@json = JSON.parse @response
+	# # # if @json.is_a?(Hash)
+	# # # 	puts 'hash'
+	# # # end
+	puts @json
+	# puts 'BREAK =============================================================='
+	@json = JSON.parse @json['data']
+	# puts @json['products']
+	@json['products'].each do |val|
+		val['name'].tr!('/////////////', '')
+		val['name'].tr!("\\\\\\\\\\\\\\", '')
+	end
+	@j = @json['products']
+	render :json => @j
 	end
 end

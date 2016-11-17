@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get 'contact' => 'sessions#contact'
   get 'users/edit' => 'users#edit'
   get 'cart' => 'sessions#cart'
+  get 'productsIndex' => 'products#index'
+  get 'productsAll' => 'products#all'
   get 'sessions/new'
 
   get 'sessions/index'
@@ -23,8 +25,8 @@ Rails.application.routes.draw do
   get 'signup' => 'sessions#new'
   post 'signup' => 'users#create'
   get 'categories' => 'categories#index'
-  get 'categories/:name/' => 'categories#view'
-  get 'products/:id/:name' => 'products#view'
+  get 'categories/:name/' => 'categories#view', :constraints => {:name => /.*/}
+  get 'products/:id/:name/:man/:num' => 'products#view', :constraints => {:man => /.*/, :num => /.*/, :name => /([^\/])+?/}
   post 'login' => 'sessions#login'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

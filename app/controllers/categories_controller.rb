@@ -63,6 +63,7 @@ def productsNg
 	@json['products'].each do |val|
 		val['name'].tr!('/////////////', '')
 		val['name'].tr!("\\\\\\\\\\\\\\", '')
+		val['manufacturer'].tr!(',,,,....', '')
 	end
 	@j = @json['products']
 	render :json => @j

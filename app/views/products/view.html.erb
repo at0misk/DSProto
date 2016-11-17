@@ -3,10 +3,16 @@
 		padding: 1%;
 	}
 	.cart{
-		width: 345px;
+		/*width: 345px;*/
 	}
 	.green{
 		color: green;
+	}
+	.qtyField{
+		width: 35px;
+	}
+	.cartTable tr td{
+    	padding: 2% 1%;
 	}
 </style>
 <% @viewPrices.each do |key, val| %>
@@ -14,10 +20,8 @@
 <h1><%= val %></h1>
 <% end %>
 <% end %>
-<% if session[:man] && session[:num] %>
-<h3>Manufacturer: <%= session[:man] %></h3>
-<h3>Manufacturer Number: <%= session[:num] %></h3>
-<% end %>
+<h3>Manufacturer: <%= @man %></h3>
+<h3>Manufacturer Number: <%= @num %></h3>
 <% min = @viewPrices["0"]["price"] %>
 <% @viewPrices.each do |key, val| %>
 <% if val.is_a?(Hash) %>
@@ -30,12 +34,13 @@
 <% end %>
 <% end %>
 <% end %>
-<div class="table-responsive">
+<div class="table-responsive cartTable">
 	<table class="table-striped">
 		<thead>
 			<tr>
 				<td>Distributor</td>
 				<td>Price</td>
+				<td>Quantity</td>
 				<td></td>
 			</tr>
 		</thead>
@@ -66,7 +71,8 @@
 					<% else %>
 					<% end %>
 				<% end %>
-					<td class="cart">Quantity: <input type="number" val="<%= val['product_id'] %>"><button>Add To Cart</button></td>
+					<td class="cart">Quantity: <input type="number" class="qtyField"></td>
+					<td><button>Add To Cart</button></td>
 				<% end %>
 				</tr>
 				<% end %>
