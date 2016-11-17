@@ -1,0 +1,9 @@
+<h1>Your Cart</h1>
+<% @c.products.each do |p| %>
+<p><%= p.name %></p>
+<p><%= p.price %></p>
+<P><%= p.distributor %></p>
+<p><%= p.manufacturer %></p>
+<p><%= p.manufacturer_number %></p>
+<P><%= p.quantity %></p>
+<% end %>

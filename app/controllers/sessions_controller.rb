@@ -7,6 +7,10 @@ class SessionsController < ApplicationController
   	@user = User.find_by(email: params['email'])
 	  	if @user && @user.authenticate(params[:password])
 	  		session[:user_id] = @user.id
+	  		@c = Cart.find_by(user_id: @user.id)
+	  			if @c.nil?
+	  				Cart.create(user_id: @user.id)
+	  			end
   			redirect_to '/about'
 	  	else
 	  		flash[:errors] = ['Invalid email / password combination']

@@ -14,12 +14,21 @@
 	.cartTable tr td{
     	padding: 2% 1%;
 	}
+	.prodImg{
+/*		height: 400px;
+		width: 400px;*/
+	}
+	.add{
+		width: 90px;
+	}
 </style>
 <% @viewPrices.each do |key, val| %>
 <% if val.is_a?(String) %>
 <h1><%= val %></h1>
+<% @name = val %>
 <% end %>
 <% end %>
+<img src="http://dentalsquid.proscrapers.com/assets/uploads/4/<%= @code %>.jpg" onerror="this.onerror=null;this.src='http://dentalsquid.proscrapers.com/assets/uploads/1/<%= @code %>.jpg';" class="prodImg">
 <h3>Manufacturer: <%= @man %></h3>
 <h3>Manufacturer Number: <%= @num %></h3>
 <% min = @viewPrices["0"]["price"] %>
@@ -51,17 +60,23 @@
 				<% val.each do |key, val| %>
 					<% if key == 'site_id' %>
 						<% if val == '1' %>
+							<% @dis = 'Patterson Dental' %>
 							<td>Patterson Dental</td>
 						<% elsif val == '2' %>
 							<td>Safco Dental</td>
+							<% @dis = 'Safco Dental' %>
 						<% elsif val == '3' %>
 							<td>Darby Dental</td>
+							<% @dis = 'Darby Dental' %>
 						<% elsif val == '4' %>
 							<td>Henry Schein</td>
+							<% @dis = 'Henry Schein' %>
 						<% elsif val == '5' %>
 							<td>Benco Dental</td>
+							<% @dis = 'Benco Dental' %>
 						<% end %>
 					<% elsif key == 'price' %>
+							<% @price = val %>
 						<% if val == min %>
 						<td class="green">$<%= val %></td>
 						<% else %>
@@ -71,8 +86,15 @@
 					<% else %>
 					<% end %>
 				<% end %>
-					<td class="cart">Quantity: <input type="number" class="qtyField"></td>
-					<td><button>Add To Cart</button></td>
+					<form action="/products" method="post">
+					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+					<td class="cart">Quantity: <input type="number" class="qtyField" name="quantity"></td>
+						<input type="hidden" name="distributor" value="<%= @dis %>">
+						<input type="hidden" name="price" value="<%= @price %>">
+						<input type="hidden" name="manufacturer" value="<%= @man %>">
+						<input type="hidden" name="manufacturer_number" value="<%= @num %>">
+						<input type="hidden" name="name" value="<%= @name %>">
+					<td><input type="submit" class="add" value="Add to Cart"></form></td>
 				<% end %>
 				</tr>
 				<% end %>

@@ -40,6 +40,10 @@ class UsersController < ApplicationController
   	@user = User.new(user_params)
   	if @user.save
   		session[:user_id] = @user.id
+  		@c = Cart.find_by(user_id: @user.id)
+  			if @c.nil?
+  				Cart.create(user_id: @user.id)
+  			end
   		redirect_to '/categories'
   	else
   		flash[:errors] = @user.errors.full_messages

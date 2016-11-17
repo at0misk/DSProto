@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
 	def view
 		@man = params['man']
 		@num = params['num']
+		@code = params['id']
 		@viewPrices = {}
 		@priceParams = {}
 	  	@queryString = params['id'].to_s
@@ -114,5 +115,15 @@ class ProductsController < ApplicationController
 	end
 	@j = @json['products']
 	render :json => @j
+	end
+	def create
+		@cart = Cart.find_by(user_id: session[:user_id])
+		@product = Product.new(cart_id: @cart.id, name: params['name'], price: params['price'], quantity: params['quantity'], manufacturer: params['manufacturer'], manufacturer_number: params['manufacturer_number'], distributor: params['distributor'], distributor_number: params['distributor_number'])
+		if @product.save
+			puts "saved"
+		else
+			puts "failed to save"
+		end
+		redirect_to :back
 	end
 end
