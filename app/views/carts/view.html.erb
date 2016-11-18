@@ -46,20 +46,8 @@
 			<td><%= p.manufacturer %></td>
 			<td><%= p.manufacturer_number %></td>
 			<% @finalPrice = (p.price.to_f * p.quantity).round(2) %>
-			<% def decimals(a) %>
-			    <% num = 0 %>
-			    <% while(a != a.to_f) %>
-			        <% num += 1 %>
-			        <% a *= 10 %>
-			    <% end %>
-			    <% num %> 
-			<% end %>
 			<% @total += @finalPrice %>
-			<% if decimals(@finalPrice) == 2 %>
-			<td>$<%= (p.price.to_f * p.quantity) %></td>
-			<% else %>
-			<td>$<%= (p.price.to_f * p.quantity) %>0</td>
-			<% end %>
+			<td>$<%= number_with_precision(p.price.to_f * p.quantity, :precision => 2) %></td>
 			<td><%= p.quantity %></td>
 			</tr>
 			<% end %>
