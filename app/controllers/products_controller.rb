@@ -118,11 +118,17 @@ class ProductsController < ApplicationController
 	end
 	def create
 		@cart = Cart.find_by(user_id: session[:user_id])
-		@product = Product.new(cart_id: @cart.id, name: params['name'], price: params['price'], quantity: params['quantity'], manufacturer: params['manufacturer'], manufacturer_number: params['manufacturer_number'], distributor: params['distributor'], distributor_number: params['distributor_number'])
-		if @product.save
-			puts "saved"
+		@p = Product.where(cart_id: @cart.id, name: params['name'])
+		if @p.empty?
+			@product = Product.new(cart_id: @cart.id, name: params['name'], price: params['price'], quantity: params['quantity'], manufacturer: params['manufacturer'], manufacturer_number: params['manufacturer_number'], distributor: params['distributor'], distributor_number: params['distributor_number'])
+			if @product.save
+				puts "saved"
+			else
+				puts "failed to save"
+			end
 		else
-			puts "failed to save"
+			@newQuantity = @p[0].quantity += params['quantity'].to_i
+			@p[0].update(quantity: @newQuantity)
 		end
 		redirect_to :back
 	end

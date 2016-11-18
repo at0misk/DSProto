@@ -1,9 +1,79 @@
-<h1>Your Cart</h1>
-<% @c.products.each do |p| %>
-<p><%= p.name %></p>
-<p><%= p.price %></p>
-<P><%= p.distributor %></p>
-<p><%= p.manufacturer %></p>
-<p><%= p.manufacturer_number %></p>
-<P><%= p.quantity %></p>
+<style>
+	td{
+		padding: 1%;
+	}
+	.cart-div{
+		overflow: scroll;
+	}
+	.cart-div::-webkit-scrollbar{
+	  display: none;
+	}
+	.formRow{
+		margin-top: 5%;
+	}
+	table{
+		width: 778px;
+	}
+	thead tr td{
+		padding: 1%;
+	}
+</style>
+<div class="table-responsive cart-div">
+	<% if @c.products.empty? %>
+	<h2>Your Cart is Empty</h2>
+	<% else %>
+	<h1>Your Cart</h1>
+	<table>
+		<thead>
+			<tr>
+				<td>Name</td>
+				<td>Distributor</td>
+				<td>Manufacturer</td>
+				<td>Manufacturer Number</td>
+				<td>Price</td>
+				<td>Quantity</td>
+			</tr>
+		</thead>
+		<tbody>
+			<% @total = 0 %>
+			<% @c.products.each do |p| %>
+			<tr>
+			<td><%= p.name %></td>
+			<td><%= p.distributor %></td>
+			<td><%= p.manufacturer %></td>
+			<td><%= p.manufacturer_number %></td>
+			<% @finalPrice = (p.price.to_f * p.quantity).round(2) %>
+			<% def decimals(a) %>
+			    <% num = 0 %>
+			    <% while(a != a.to_i) %>
+			        <% num += 1 %>
+			        <% a *= 10 %>
+			    <% end %>
+			    <% num %> 
+			<% end %>
+			<% if decimals(@finalPrice) == 2 %>
+			<td><%= (p.price.to_f * p.quantity) %></td>
+			<% else %>
+			<td><%= (p.price.to_f * p.quantity) %>0</td>
+			<% end %>
+			<td><%= p.quantity %></td>
+			</tr>
+			<% end %>
+			<tr class="formRow">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>
+					<form action="/checkout" method="post">
+					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+					<input name="id" value="<%= @c.id %>" type="hidden">
+					<input type="submit" value="Check Out">
+					</form>
+				</td>
+			</tr>
+		</tbody>
+</table>
 <% end %>
+</div>

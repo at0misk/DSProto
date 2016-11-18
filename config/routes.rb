@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'productsAll' => 'products#all'
   get 'sessions/new'
   post 'products' => 'products#create'
+  post 'checkout' => 'carts#checkout'
 
   get 'sessions/index'
 

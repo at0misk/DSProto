@@ -21,6 +21,17 @@
 	.add{
 		width: 90px;
 	}
+	.divRow{
+		display: block;
+	}
+	.cell{
+		display: inline-block;
+	    width: 120px;
+	    margin: 1%;
+	}
+	form{
+		display: inline;
+	}
 </style>
 <% @viewPrices.each do |key, val| %>
 <% if val.is_a?(String) %>
@@ -43,61 +54,71 @@
 <% end %>
 <% end %>
 <% end %>
-<div class="table-responsive cartTable">
-	<table class="table-striped">
-		<thead>
-			<tr>
-				<td>Distributor</td>
-				<td>Price</td>
-				<td>Quantity</td>
-				<td></td>
-			</tr>
-		</thead>
-		<tbody>
+<div class="cartTable">
+			<div class="divRow">
+				<span class="cell">Distributor</span>
+				<span class="cell">Price</span>
+				<span class="cell">Quantity</span>
+				<span class="cell"></span>
+			</div>
 				<% @viewPrices.each do |key, val| %>
-				<tr>
+				<div class="divRow">
 				<% if val.is_a?(Hash) %>
 				<% val.each do |key, val| %>
 					<% if key == 'site_id' %>
 						<% if val == '1' %>
 							<% @dis = 'Patterson Dental' %>
-							<td>Patterson Dental</td>
+							<span class="cell">Patterson Dental</span>
 						<% elsif val == '2' %>
-							<td>Safco Dental</td>
+							<span class="cell">Safco Dental</span>
 							<% @dis = 'Safco Dental' %>
 						<% elsif val == '3' %>
-							<td>Darby Dental</td>
+							<span class="cell">Darby Dental</span>
 							<% @dis = 'Darby Dental' %>
 						<% elsif val == '4' %>
-							<td>Henry Schein</td>
+							<span class="cell">Henry Schein</span>
 							<% @dis = 'Henry Schein' %>
 						<% elsif val == '5' %>
-							<td>Benco Dental</td>
+							<span class="cell">Benco Dental</span>
 							<% @dis = 'Benco Dental' %>
 						<% end %>
 					<% elsif key == 'price' %>
+							<% def decimals(a) %>
+							    <% num = 0 %>
+								    <% while(a != a.to_i) %>
+								        <% num += 1 %>
+								        <% a *= 10 %>
+								    <% end %>
+							    <% num %> 
+							<% end %>
 							<% @price = val %>
-						<% if val == min %>
-						<td class="green">$<%= val %></td>
-						<% else %>
-						<td>$<%= val %></td>
-						<% end %>
+							<% if decimals(val) == 1 %>
+								<% if val == min %>
+								<span class="cell green">$<%= val %>0</span>
+								<% else %>
+								<span class="cell">$<%= val %>0</span>
+								<% end %>
+							<% else %>
+								<% if val == min %>
+								<span class="cell green">$<%= val %></span>
+								<% else %>
+								<span class="cell">$<%= val %></span>
+								<% end %>
+							<% end %>
 					<% elsif key == 'product_id' %>
 					<% else %>
 					<% end %>
 				<% end %>
 					<form action="/products" method="post">
 					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-					<td class="cart">Quantity: <input type="number" class="qtyField" name="quantity"></td>
+					<span class="cell">Quantity: <input type="number" class="qtyField" name="quantity"></span>
 						<input type="hidden" name="distributor" value="<%= @dis %>">
 						<input type="hidden" name="price" value="<%= @price %>">
 						<input type="hidden" name="manufacturer" value="<%= @man %>">
 						<input type="hidden" name="manufacturer_number" value="<%= @num %>">
 						<input type="hidden" name="name" value="<%= @name %>">
-					<td><input type="submit" class="add" value="Add to Cart"></form></td>
+					<span class="cell"><input type="submit" class="add" value="Add to Cart"></form></span>
 				<% end %>
-				</tr>
+				</div>
 				<% end %>
-		</tbody>
-	</table>
 </div>
