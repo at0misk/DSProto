@@ -17,6 +17,9 @@
 	thead tr td{
 		padding: 1%;
 	}
+	.green{
+		color: green;
+	}
 </style>
 <div class="table-responsive cart-div">
 	<% if @c.products.empty? %>
@@ -51,10 +54,11 @@
 			    <% end %>
 			    <% num %> 
 			<% end %>
+			<% @total += @finalPrice %>
 			<% if decimals(@finalPrice) == 2 %>
-			<td><%= (p.price.to_f * p.quantity) %></td>
+			<td>$<%= (p.price.to_f * p.quantity) %></td>
 			<% else %>
-			<td><%= (p.price.to_f * p.quantity) %>0</td>
+			<td>$<%= (p.price.to_f * p.quantity) %>0</td>
 			<% end %>
 			<td><%= p.quantity %></td>
 			</tr>
@@ -64,7 +68,7 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td></td>
+				<td>Total: <span class="green">$<%= @total %></span></td>
 				<td>
 					<form action="/checkout" method="post">
 					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
