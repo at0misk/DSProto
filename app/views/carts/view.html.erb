@@ -48,7 +48,7 @@
 			<% @finalPrice = (p.price.to_f * p.quantity).round(2) %>
 			<% def decimals(a) %>
 			    <% num = 0 %>
-			    <% while(a != a.to_i) %>
+			    <% while(a != a.to_f) %>
 			        <% num += 1 %>
 			        <% a *= 10 %>
 			    <% end %>
