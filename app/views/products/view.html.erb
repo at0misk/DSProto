@@ -83,7 +83,7 @@
 							<% @dis = 'Benco Dental' %>
 						<% end %>
 					<% elsif key == 'price' %>
-							<% def decimals(a) %>
+							<% def decimalsProducts(a) %>
 							    <% num = 0 %>
 								    <% while(a != a.to_i) %>
 								        <% num += 1 %>
@@ -92,7 +92,7 @@
 							    <% num %> 
 							<% end %>
 							<% @price = val %>
-							<% if decimals(val) == 1 %>
+							<% if decimalsProducts(val) == 1 %>
 								<% if val == min %>
 								<span class="cell green">$<%= val %>0</span>
 								<% else %>
