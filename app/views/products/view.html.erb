@@ -95,7 +95,7 @@
 				<% end %>
 					<form action="/products" method="post">
 					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-					<span class="cell"><input type="number" class="qtyField" name="quantity"></span>
+					<span class="cell"><input type="number" class="qtyField" name="quantity" vlaue="0"></span>
 						<input type="hidden" name="distributor" value="<%= @dis %>">
 						<input type="hidden" name="price" value="<%= @price %>">
 						<input type="hidden" name="manufacturer" value="<%= @man %>">
