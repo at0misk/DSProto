@@ -1,6 +1,27 @@
+<style>
+.prodSS{
+	margin-left: 1%;
+    padding: 0% 1%;
+    width: 100px;
+    height: 40px;
+}
+.searchForm{
+	margin-top: 2%;
+	font-size: 2em;
+}
+</style>
 <h1><span class="blue">Dental</span> Squid</h1>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in nisi quis odio tincidunt venenatis in ac ante. Proin justo sem, hendrerit nec ante vel, pretium placerat lacus. Donec semper lectus dui, id sagittis ipsum ullamcorper luctus. Donec elementum, odio consectetur luctus accumsan, magna ligula rhoncus elit, ac eleifend purus erat vitae dui. Aliquam id blandit magna. Pellentesque dignissim varius felis vitae varius. Vestibulum quis elementum nunc, eu dapibus metus. Duis fringilla nisl urna, sit amet aliquet quam dapibus id.</p>
 
 <p>In lorem erat, interdum et metus viverra, bibendum mollis libero. Fusce eu diam ut neque sodales porta. Sed consectetur nunc interdum, accumsan enim eu, lobortis libero. Sed et dolor diam. Nulla aliquam eleifend nulla sit amet vestibulum. Nam finibus, ante id aliquet pellentesque, ligula ligula condimentum nulla, a eleifend nulla enim et enim. Phasellus laoreet maximus venenatis. Nunc ac fringilla est, vel placerat tellus.</p>
 
-<p>Nulla vestibulum malesuada justo blandit fermentum. Proin sit amet pellentesque neque. Quisque varius magna leo, eu faucibus orci commodo et. Curabitur pretium, ante in sollicitudin tempor, diam quam imperdiet ante, a pharetra felis metus non lorem. Maecenas non egestas massa. Fusce vitae condimentum sapien. Integer mauris sapien, auctor eget ex nec, convallis interdum est. Morbi cursus mi ac nibh consequat, non condimentum magna porttitor. Sed viverra fermentum lorem, eget pellentesque enim maximus at. Fusce fermentum turpis ut ante rhoncus, sit amet facilisis risus vestibulum. Quisque tincidunt feugiat porttitor. Sed lacinia egestas velit, et eleifend tellus dictum sed. Curabitur vehicula nulla vitae euismod tincidunt. Sed eu orci a odio imperdiet viverra. Cras consequat consequat enim, vel malesuada mi placerat non. Nulla pulvinar magna dolor, id pulvinar neque gravida eu.</p>
+<% if session[:front_door] == true %>
+<% else %>
+<div class="searchForm">
+<form action="/search" method="POST">
+Search All Products: <input type="text" name="sparams">
+<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+<input type="submit" value="Search" class="prodSS btn btn-primary btn-lg">
+</form>
+</div>
+<% end %>

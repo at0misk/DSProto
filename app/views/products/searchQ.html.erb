@@ -1,0 +1,83 @@
+<style>
+	td{
+		padding: 1%;
+	}
+.productnav li{
+    margin: 1% 0;
+	display: block;
+}
+.productDiv{
+    margin-top: .35%;
+	height: 850px;
+	overflow: scroll;
+}
+/*.productDiv::-webkit-scrollbar{
+  display: none;
+}*/
+.productnav img{
+	height: 100px;
+	width: 100px;
+}
+table{
+	width: 778px;
+}
+thead tr td{
+	padding: 1%;
+}
+.prodSS{
+	margin-left: 1%;
+	display: inline-block;
+}
+.resultFilter{
+	display: block;
+}
+</style>
+	<!-- <div class="productDiv"> -->
+<!-- 	<table class="productnav">
+		<thead>
+			<tr>
+				<td>Image</td>
+				<td>Product</td>
+				<td>Manufacturer</td>
+				<td>Manufacturer Number</td>
+				<td>Product Description</td>
+			</tr>
+		</thead>
+		<tbody>
+			<% if @results %>
+				<% @results.each do |r| %>
+					<tr>
+					<td><img src="http://dentalsquid.proscrapers.com/assets/uploads/4/<%= r.product_code %>.jpg" onerror="this.onerror=null;this.src='http://dentalsquid.proscrapers.com/assets/uploads/1/<%= r.product_code %>.jpg';"></td>
+					<td> <a href='/products/<%= r.product_code %>/<%= r.name %>/<%= r.manufacturer %>/<%= r.manufacturer_number %>'><%= r.name %></td>
+					<td> <%= r.manufacturer %> </td>
+					<td> <%= r.manufacturer_number %> </td>
+					<td> <%= r.product_detail %> </td>
+					</tr>
+				<% end %>
+			<% end %>
+		</tr>
+		</tbody>
+	</table>
+	</div> -->
+
+	<div ng-controller='qProdController'>
+	Search Results: <input type="text" ng-model="product_filter" class="resultFilter">
+	<div class="productDiv">
+	<table class="productnav">
+		<thead>
+			<tr>
+				<td>Image</td>
+				<td>Product</td>
+				<td>Manufacturer Number</td>
+				<td>Manufacturer</td>
+				<td>Product Description</td>
+			</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="product in products | filter:product_filter">
+		<td><img src="http://dentalsquid.proscrapers.com/assets/uploads/4/{{product.product_code}}.jpg" onerror="this.onerror=null;this.src='http://dentalsquid.proscrapers.com/assets/uploads/1/{{product.product_code}}.jpg';"></td><td><a href='/products/{{product.product_code}}/{{product.name}}/{{product.manufacturer}}/{{product.manufacturer_number}}'>{{ product.name }}</a></td><td>{{ product.manufacturer_number }}</td><td>{{ product.manufacturer }}</td><td>{{ product.product_detail }}</td>
+		</tr>
+		</tbody>
+	</table>
+	</div>
+</div>

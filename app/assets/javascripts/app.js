@@ -53,6 +53,20 @@ app.factory("allProductFactory", function($http){
     }
     return factory;
 })
+app.factory("qProductFactory", function($http){
+    var factory = {};
+    factory.index = function(callback) {
+        $http.get("/qProductAng").success(function(output){
+            callback(output);
+        })
+    }
+    return factory;
+})
+app.controller("qProdController", function($rootScope, qProductFactory){
+    qProductFactory.index(function(json){
+        $rootScope.products = json;
+    })
+})
 app.controller("catsController", function($rootScope, catFactory){
     catFactory.index(function(json){
         $rootScope.cats = json;

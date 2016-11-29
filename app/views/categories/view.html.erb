@@ -6,7 +6,7 @@
     margin: 1% 0;
 	display: block;
 }
-input{
+.prodFilter{
   display: block;
 }
 .productDiv{
@@ -27,9 +27,20 @@ table{
 thead tr td{
 	padding: 1%;
 }
+.formli{
+  width: 566px;
+  padding: 11px
+}
+.searchbar{
+  width: 300px;
+  margin-left: 2%;
+}
+.btn-sm{
+  margin-left: 2%;
+}
 </style>
 <div ng-controller='productsController'>
-	Search Products: <input type="text" ng-model="product_filter">
+	Search Results: <input type="text" ng-model="product_filter" class="prodFilter">
 	<div class="productDiv">
 	<table class="productnav">
 		<thead>
@@ -38,11 +49,12 @@ thead tr td{
 				<td>Product</td>
 				<td>Manufacturer Number</td>
 				<td>Manufacturer</td>
+				<td>Product Description</td>
 			</tr>
 		</thead>
 		<tbody>
 		<tr ng-repeat="product in products | filter:product_filter">
-		<td><img src="http://dentalsquid.proscrapers.com/assets/uploads/4/{{product.product_code}}.jpg" onerror="this.onerror=null;this.src='http://dentalsquid.proscrapers.com/assets/uploads/1/{{product.product_code}}.jpg';"></td><td><a href='/products/{{product.product_code}}/{{product.name}}/{{product.manufacturer}}/{{product.manufacturer_number}}'>{{ product.name }}</a></td><td>{{ product.manufacturer_number }}</td><td>{{ product.manufacturer }}</td>
+		<td><img src="http://dentalsquid.proscrapers.com/assets/uploads/4/{{product.product_code}}.jpg" onerror="this.onerror=null;this.src='http://dentalsquid.proscrapers.com/assets/uploads/1/{{product.product_code}}.jpg';"></td><td><a href='/products/{{product.product_code}}/{{product.name}}/{{product.manufacturer}}/{{product.manufacturer_number}}'>{{ product.name }}</a></td><td>{{ product.manufacturer_number }}</td><td>{{ product.manufacturer }}</td><td>{{ product.product_detail }}</td>
 		</tr>
 		</tbody>
 	</table>

@@ -98,7 +98,26 @@ class ProductsController < ApplicationController
 	def index
 	end
 	def all
-  	puts session[:productName]
+	# replace here with db data 
+ #  	puts session[:productName]
+ #   	@returnHash = {}
+	# @response = RestClient::Request.execute(:method => :post, :url => 'http://dentalsquid.proscrapers.com/api/get-listings', :payload => {token: '90c3562d7d962f37bee2185c2b871fd4d1cfa7f2129617033f14d9c1b2b96730'}, :timeout => 90000000)
+	# @json = JSON.parse @response
+	# # # # if @json.is_a?(Hash)
+	# # # # 	puts 'hash'
+	# # # # end
+	# puts @json
+	# # puts 'BREAK =============================================================='
+	# @json = JSON.parse @json['data']
+	# # puts @json['products']
+	# @json['products'].each do |val|
+	# 	val['name'].tr!('/////////////', '')
+	# 	val['name'].tr!("\\\\\\\\\\\\\\", '')
+	# end
+	@j = Prod.all
+	render :json => @j
+	end
+	def cacheAll
    	@returnHash = {}
 	@response = RestClient::Request.execute(:method => :post, :url => 'http://dentalsquid.proscrapers.com/api/get-listings', :payload => {token: '90c3562d7d962f37bee2185c2b871fd4d1cfa7f2129617033f14d9c1b2b96730'}, :timeout => 90000000)
 	@json = JSON.parse @response
@@ -112,9 +131,16 @@ class ProductsController < ApplicationController
 	@json['products'].each do |val|
 		val['name'].tr!('/////////////', '')
 		val['name'].tr!("\\\\\\\\\\\\\\", '')
+		@p = Prod.new
+		@p.name = val['name']
+		@p.manufacturer = val['manufacturer']
+		@p.manufacturer_number = val['manufacturer_number']
+		@p.product_code = val['product_code']
+		@p.product_detail = val['product_detail']
+		@p.save
 	end
 	@j = @json['products']
-	render :json => @j
+	redirect_to :back
 	end
 	def create
 		@cart = Cart.find_by(user_id: session[:user_id])
@@ -131,5 +157,17 @@ class ProductsController < ApplicationController
 			@p[0].update(quantity: @newQuantity)
 		end
 		redirect_to :back
+	end
+	def search
+	end
+	def searchQ
+		session[:front_door] = true
+		session[:searchP] = params['sparams']
+		@results = Prod.where("name LIKE ? OR manufacturer LIKE ? OR manufacturer_number LIKE ? OR product_detail LIKE ?", "%#{params['sparams']}%","%#{params['sparams']}%","%#{params['sparams']}%","%#{params['sparams']}%")
+	end
+	def searchQAng
+		session[:front_door] = true
+		@results = Prod.where("name LIKE ? OR manufacturer LIKE ? OR manufacturer_number LIKE ? OR product_detail LIKE ?", "%#{session[:searchP]}%","%#{session[:searchP]}%","%#{session[:searchP]}%","%#{session[:searchP]}%")
+		render :json => @results
 	end
 end

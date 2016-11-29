@@ -85,7 +85,7 @@
 					<% elsif key == 'price' %>
 							<% @price = val %>
 								<% if val == min %>
-								<span class="cell green">$<%= number_with_precision(val, :precision => 2) %></span>
+								<span class="cell">$<%= number_with_precision(val, :precision => 2) %></span>
 								<% else %>
 								<span class="cell green">$<%= number_with_precision(val, :precision => 2) %></span>
 								<% end %>

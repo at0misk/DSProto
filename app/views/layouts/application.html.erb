@@ -48,11 +48,28 @@ body {
 	height: 850px;
 	overflow: scroll;
 }
-.catnav::-webkit-scrollbar{
+/*.catnav::-webkit-scrollbar{
   display: none;
-}
+}*/
 .blue{
   color: #337ab7;
+}
+.searchForm2{
+  font-size: 1.5em;
+}
+/*.belowForm{
+  margin-top: 1%;
+}*/
+.formli{
+  width: 566px;
+  padding: 11px
+}
+.searchbar{
+  width: 300px;
+  margin-left: 2%;
+}
+.btn-sm{
+  margin-left: 2%;
 }
 </style>
 </head>
@@ -68,7 +85,7 @@ body {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Dental Squid</a>
+      <a class="navbar-brand" href="/"><span class="blue">Dental</span> Squid</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -76,10 +93,16 @@ body {
       <ul class="nav navbar-nav">
         <!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li> -->
         <!-- All Product Link -->
-        <!-- <li><a href="/productsIndex">Search All Products</a></li> -->
         <li><a href="/about">Learn More</a></li>
         <li><a href="/pricing">Pricing</a></li>
         <li><a href="/contact">Contact Us</a></li>
+        <% if session[:front_door] == true %>
+        <li class="formli"><form action="/search" method="POST">
+Search All Products: <input type="text" name="sparams" class="searchbar">
+<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+<input type="submit" value="Search" class="btn btn-primary btn-sm">
+</form></li>
+        <% end %>
 <!--         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a> -->
 <!--           <ul class="dropdown-menu">
@@ -117,7 +140,14 @@ body {
   </div><!-- /.container-fluid -->
 </nav>
 <div class="container">
-	<div class="row">
+<!--   <div class="row searchForm2">
+    <form action="/search" method="POST">
+Search All Products: <input type="text" name="sparams">
+<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+<input type="submit" value="Search" class="prodSS">
+</form>
+  </div> -->
+	<div class="row belowForm">
 		<div class="col-md-2">
 			<div ng-controller='catsController'>
 				Search Categories: <input type="text" ng-model="cat_filter">

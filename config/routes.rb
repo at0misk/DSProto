@@ -12,6 +12,11 @@ Rails.application.routes.draw do
   get 'sessions/new'
   post 'products' => 'products#create'
   post 'checkout' => 'carts#checkout'
+  get 'cacheAll' => 'products#cacheAll'
+  get 'cacheCats' => 'categories#cacheCats'
+  get 'search' => 'products#search'
+  post 'search' => 'products#searchQ'
+  get 'qProductAng' => 'products#searchQAng'
 
   get 'sessions/index'
 
