@@ -20,13 +20,19 @@
 	.green{
 		color: green;
 	}
+	.quant{
+		width: 45px
+	}
+	.btn-danger{
+		margin-top: 3%;
+	}
 </style>
 <div class="table-responsive cart-div">
 	<% if @c.products.empty? %>
 	<h2>Your Cart is Empty</h2>
 	<% else %>
 	<h1>Your Cart</h1>
-	<table>
+	<table id="cartTable">
 		<thead>
 			<tr>
 				<td>Name</td>
@@ -35,6 +41,7 @@
 				<td>Manufacturer Number</td>
 				<td>Price</td>
 				<td>Quantity</td>
+				<td>Action</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -47,21 +54,33 @@
 			<td><%= p.manufacturer_number %></td>
 			<% @finalPrice = (p.price.to_f * p.quantity).round(2) %>
 			<% @total += @finalPrice %>
-			<td>$<%= number_with_precision(p.price.to_f * p.quantity, :precision => 2) %></td>
-			<td><%= p.quantity %></td>
-			</tr>
+			<td>$<%= number_with_precision(p.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+			<form method="post" action="carts/<%= p.id %>">
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+          	<input type="hidden"name="_method" value="patch">
+			<td><input type="number" name="quantity" value="<%= p.quantity %>" class="quant"></td>
+			<td><input type="submit" value="Update Quantity" class="btn btn-primary btn-sm">
+			</form>
+			<form method="post" action="carts/<%= p.id %>">
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+			<input type='hidden' name='_method' value='delete'>
+			<input type="submit" value="Remove Item" class="btn btn-danger btn-sm">
+			</form>
+			</td>
 			<% end %>
+			</tr>
 			<tr class="formRow">
 				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
-				<td>Total: <span class="green">$<%= @total %></span></td>
+				<td></td>
+				<td>Total: <span class="green"><%= number_to_currency(@total) %></span></td>
 				<td>
 					<form action="/checkout" method="post">
 					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 					<input name="id" value="<%= @c.id %>" type="hidden">
-					<input type="submit" value="Check Out">
+					<input type="submit" value="Check Out" class="btn btn-primary btn-sm">
 					</form>
 				</td>
 			</tr>

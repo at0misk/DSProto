@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   get 'search' => 'products#search'
   post 'search' => 'products#searchQ'
   get 'qProductAng' => 'products#searchQAng'
+  patch 'carts/:id' => 'carts#update'
+  delete 'carts/:id' => 'carts#delete'
 
   get 'sessions/index'
 

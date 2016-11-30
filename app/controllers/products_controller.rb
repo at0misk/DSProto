@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
 		@man = params['man']
 		@num = params['num']
 		@code = params['id']
+		@description = Prod.find_by(name: params['name'])
 		@viewPrices = {}
 		@priceParams = {}
 	  	@queryString = params['id'].to_s
@@ -128,8 +129,10 @@ class ProductsController < ApplicationController
 	# puts 'BREAK =============================================================='
 	@json = JSON.parse @json['data']
 	# puts @json['products']
+	Prod.destroy_all
 	@json['products'].each do |val|
 		val['name'].tr!('/////////////', '')
+		val['name'].tr!('#############', '')
 		val['name'].tr!("\\\\\\\\\\\\\\", '')
 		@p = Prod.new
 		@p.name = val['name']
