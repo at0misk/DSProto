@@ -129,15 +129,16 @@ class ProductsController < ApplicationController
 	# puts 'BREAK =============================================================='
 	@json = JSON.parse @json['data']
 	# puts @json['products']
-	Prod.destroy_all
+	# Prod.destroy_all
 	@json['products'].each do |val|
 		val['name'].tr!('/////////////', '')
-		val['name'].tr!('#############', '')
 		val['name'].tr!("\\\\\\\\\\\\\\", '')
+		val['name'].tr!('############', '')
 		@p = Prod.new
 		@p.name = val['name']
 		@p.manufacturer = val['manufacturer']
 		@p.manufacturer_number = val['manufacturer_number']
+		@p.code = val['product_code']
 		@p.product_code = val['product_code']
 		@p.product_detail = val['product_detail']
 		@p.save
@@ -166,11 +167,11 @@ class ProductsController < ApplicationController
 	def searchQ
 		session[:front_door] = true
 		session[:searchP] = params['sparams']
-		@results = Prod.where("name LIKE ? OR manufacturer LIKE ? OR manufacturer_number LIKE ? OR product_detail LIKE ?", "%#{params['sparams']}%","%#{params['sparams']}%","%#{params['sparams']}%","%#{params['sparams']}%")
+		@results = Prod.where("name LIKE ? OR manufacturer LIKE ? OR manufacturer_number LIKE ? OR product_detail LIKE ? OR code LIKE ?", "%#{params['sparams']}%","%#{params['sparams']}%","%#{params['sparams']}%","%#{params['sparams']}%","%#{params['sparams']}%")
 	end
 	def searchQAng
 		session[:front_door] = true
-		@results = Prod.where("name LIKE ? OR manufacturer LIKE ? OR manufacturer_number LIKE ? OR product_detail LIKE ?", "%#{session[:searchP]}%","%#{session[:searchP]}%","%#{session[:searchP]}%","%#{session[:searchP]}%")
+		@results = Prod.where("name LIKE ? OR manufacturer LIKE ? OR manufacturer_number LIKE ? OR product_detail LIKE ? OR code LIKE ?", "%#{session[:searchP]}%","%#{session[:searchP]}%","%#{session[:searchP]}%","%#{session[:searchP]}%","%#{session[:searchP]}%")
 		render :json => @results
 	end
 end

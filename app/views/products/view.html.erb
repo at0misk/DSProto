@@ -42,6 +42,7 @@
 <img src="http://dentalsquid.proscrapers.com/assets/uploads/4/<%= @code %>.jpg" onerror="this.onerror=null;this.src='http://dentalsquid.proscrapers.com/assets/uploads/1/<%= @code %>.jpg';" class="prodImg">
 <h3>Manufacturer: <%= @man %></h3>
 <h3>Manufacturer Number: <%= @num %></h3>
+<h3>Distributor Number: <%= @code %></h3>
 <% min = @viewPrices["0"]["price"] %>
 <% @viewPrices.each do |key, val| %>
 <% if val.is_a?(Hash) %>
@@ -86,9 +87,9 @@
 					<% elsif key == 'price' %>
 							<% @price = val %>
 								<% if val == min %>
-								<span class="cell">$<%= number_with_precision(val, :precision => 2) %></span>
-								<% else %>
 								<span class="cell green">$<%= number_with_precision(val, :precision => 2) %></span>
+								<% else %>
+								<span class="cell">$<%= number_with_precision(val, :precision => 2) %></span>
 								<% end %>
 					<% elsif key == 'product_id' %>
 					<% else %>

@@ -38,11 +38,12 @@ thead tr td{
 				<td>Product</td>
 				<td>Manufacturer Number</td>
 				<td>Manufacturer</td>
+				<td>Distributor Number</td>
 			</tr>
 		</thead>
 		<tbody>
 		<tr ng-repeat="product in products | filter:product_filter">
-		<td><img src="http://dentalsquid.proscrapers.com/assets/uploads/4/{{product.product_code}}.jpg" onerror="this.onerror=null;this.src='http://dentalsquid.proscrapers.com/assets/uploads/1/{{product.product_code}}.jpg';"></td><td><a href='/products/{{product.product_code}}/{{product.name}}/{{product.manufacturer}}/{{product.manufacturer_number}}'>{{ product.name }}</a></td><td>{{ product.manufacturer_number }}</td><td>{{ product.manufacturer }}</td>
+		<td><img src="http://dentalsquid.proscrapers.com/assets/uploads/4/{{product.product_code}}.jpg" onerror="this.onerror=null;this.src='http://dentalsquid.proscrapers.com/assets/uploads/1/{{product.product_code}}.jpg';"></td><td><a href='/products/{{product.product_code}}/{{product.name}}/{{product.manufacturer}}/{{product.manufacturer_number}}'>{{ product.name }}</a></td><td>{{ product.manufacturer_number }}</td><td>{{ product.manufacturer }}</td><td>{{ product.code }}</td>
 		</tr>
 		</tbody>
 	</table>
