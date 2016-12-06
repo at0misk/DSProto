@@ -64,6 +64,12 @@ class ProductsController < ApplicationController
 						formatString = formatString[5...-3]
 						puts formatString
 						finalParams['price'] = formatString
+					elsif "#{val['site_id']}" == '4'
+						puts "schein"
+						formatString = val['price']
+						formatString = formatString[5...-3]
+						puts formatString
+						finalParams['price'] = formatString
 					else
 						finalParams['price'] = "#{val['price']}"
 					end

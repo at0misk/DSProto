@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get 'qProductAng' => 'products#searchQAng'
   patch 'carts/:id' => 'carts#update'
   delete 'carts/:id' => 'carts#delete'
+  get 'logout' => 'sessions#destroy'
+  patch 'users' => 'users#update'
 
   get 'sessions/index'
 

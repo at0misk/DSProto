@@ -30,4 +30,8 @@ class SessionsController < ApplicationController
   end
   def cart
   end
+  def destroy
+    session[:user_id] = nil
+    redirect_to '/sessions/index'
+  end
 end

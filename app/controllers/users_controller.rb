@@ -54,5 +54,11 @@ class UsersController < ApplicationController
   	params.require(:user).permit(:first, :last, :email, :office, :city, :state, :password, :phone) 
   	end
   	def edit
+  		@user = User.find(session[:user_id])
+  	end
+  	def update
+  		@u = User.find(session[:user_id])
+	    @u.update(user_params)
+	    redirect_to :back
   	end
 end
