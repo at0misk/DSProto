@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
 	def view
+		session[:front_door] = true
 		@man = params['man']
 		@num = params['num']
 		@code = params['id']

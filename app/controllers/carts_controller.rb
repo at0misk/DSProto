@@ -2,6 +2,7 @@ class CartsController < ApplicationController
   def index
   end
   def view
+    session[:front_door] = true
   	@c = Cart.find_by(user_id: session[:user_id])
   end
   def update

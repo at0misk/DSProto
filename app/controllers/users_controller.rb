@@ -54,6 +54,7 @@ class UsersController < ApplicationController
   	params.require(:user).permit(:first, :last, :email, :office, :city, :state, :password, :phone) 
   	end
   	def edit
+		session[:front_door] = true
   		@user = User.find(session[:user_id])
   	end
   	def update

@@ -103,6 +103,7 @@ def productsNg
 	render :json => @j
 end
   def view
+	session[:front_door] = true
   	session[:productName] = params['name']
   	puts params['name']
    	@returnHash = {}
