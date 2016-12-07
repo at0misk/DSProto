@@ -52,9 +52,12 @@
 			<td><%= p.distributor %></td>
 			<td><%= p.manufacturer %></td>
 			<td><%= p.manufacturer_number %></td>
+			<% if p.price == nil %>
+			<% else %>
 			<% @finalPrice = (p.price.to_f * p.quantity).round(2) %>
 			<% @total += @finalPrice %>
 			<td>$<%= number_with_precision(p.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+			<% end %>
 			<form method="post" action="carts/<%= p.id %>">
 			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
           	<input type="hidden"name="_method" value="patch">
