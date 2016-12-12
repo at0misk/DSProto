@@ -119,7 +119,6 @@ class CartsController < ApplicationController
     @viewPrices
     end
     # end price scrape
-    redirect_to :back
   end
   def update
     @p = Product.find(params['id'])
