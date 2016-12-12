@@ -26,8 +26,23 @@
 	.btn-danger{
 		margin-top: 3%;
 	}
-	table .btn{
+	.cartRow .btn{
 		width: 142px;
+	}
+	.cartRow{
+		display: block;
+	}
+	.cell{
+		display: inline-block;
+	    width: 120px;
+	    margin: 1%;
+	}
+	form{
+		display: inline;
+	}
+	.cartTable{
+		height: 810px;
+		overflow: scroll;
 	}
 </style>
 <div class="table-responsive cart-div">
@@ -35,19 +50,16 @@
 	<h2>Your Cart is Empty</h2>
 	<% else %>
 	<h1>Your Cart</h1>
-	<table id="cartTable">
-		<thead>
-			<tr>
-				<td>Name</td>
-				<td>Manufacturer</td>
-				<td>Manufacturer Number</td>
-				<td>Distributor</td>
-				<td>Price</td>
-				<td>Quantity</td>
-				<td>Action</td>
-			</tr>
-		</thead>
-		<tbody>
+	<div class="cartTable">
+			<div class="cartRow">
+				<span class="cell">Name</span>
+				<span class="cell">Manufacturer</span>
+				<span class="cell">Manufacturer Number</span>
+				<span class="cell">Distributor</span>
+				<span class="cell">Price</span>
+				<span class="cell">Quantity</span>
+				<span class="cell">Action</span>
+			</div>
 			<% @total = 0 %>
 			<% @c.products.each do |p| %>
 			<% min = (p.price.to_f * p.quantity).round(2) %>
@@ -56,135 +68,146 @@
 				<% min = (r.price.to_f * p.quantity).round(2) %>
 				<% end %>
 			<% end %>
-			<tr class="bg-info">
-			<td><a href='/products/<%= p.distributor_number %>/<%= p.name %>/<%= p.manufacturer %>/<%= p.manufacturer_number %>'><%= p.name %></td>
-			<td><%= p.manufacturer %></td>
-			<td><%= p.manufacturer_number %></td>
-			<td><%= p.distributor %></td>
+			<div class="cartRow bg-info">
+			<span class="cell"><a href='/products/<%= p.distributor_number %>/<%= p.name %>/<%= p.manufacturer %>/<%= p.manufacturer_number %>'><%= p.name %></a></span>
+			<span class="cell"><%= p.manufacturer %></span>
+			<span class="cell"><%= p.manufacturer_number %></span>
+			<span class="cell"><%= p.distributor %></span>
 			<% current = p.distributor %>
 			<% if p.price == nil or p.quantity == nil %>
 			<% else %>
 			<% @finalPrice = (p.price.to_f * p.quantity).round(2) %>
 			<% @total += @finalPrice %>
 			<% if min == (p.price.to_f * p.quantity).round(2) %>
-			<td><span class="green">$<%= number_with_precision(p.price.to_f * p.quantity.to_i, :precision => 2) %></span></td>
+			<span class="cell"><span class="green">$<%= number_with_precision(p.price.to_f * p.quantity.to_i, :precision => 2) %></span></span>
 			<% else %>
-			<td>$<%= number_with_precision(p.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+			<span class="cell">$<%= number_with_precision(p.price.to_f * p.quantity.to_i, :precision => 2) %></span>
 			<% end %>
 			<% end %>
 			<form method="post" action="carts/<%= p.id %>">
 			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
           	<input type="hidden"name="_method" value="patch">
-			<td><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></td>
-			<td><input type="submit" value="Update Quantity" class="btn btn-primary btn-sm">
+			<span class="cell"><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></span>
+			<span class="cell"><input type="submit" value="Update Quantity" class="btn btn-primary btn-sm">
 			</form>
 			<form method="post" action="carts/<%= p.id %>">
 			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 			<input type='hidden' name='_method' value='delete'>
 			<input type="submit" value="Remove Item" class="btn btn-danger btn-sm">
 			</form>
-			</td>
-			</tr>
+			</span>
+			</div>
 			<% p.prices.each do |r| %>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
+			<div class="cartRow">
 				<% if r.distributor == '1' && current != 'Patterson Dental'%>
-					<td>Patterson Dental</td>
+				<span class="cell"></span>
+				<span class="cell"></span>
+				<span class="cell"></span>
+					<span class="cell">Patterson Dental</span>
 					<% if min == (r.price.to_f * p.quantity).round(2) %>
-					<td><span class="green">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span></td>
+					<span class="cell"><span class="green">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span></span>
 					<% else %>
-					<td>$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+					<span class="cell">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span>
 					<% end %>
 			<form method="post" action="dist_change/<%= p.id %>">
 			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
           	<input type="hidden"name="_method" value="patch">
           	<input type="hidden" name="price" value="<%= r.price %>">
           	<input type="hidden" name="distributor" value="Patterson Dental">
-			<td><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></td>
-			<td><input type="submit" value="Change Distributor" class="btn btn-primary btn-sm"></td>
+			<span class="cell"><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></span>
+			<span class="cell"><input type="submit" value="Change Distributor" class="btn btn-primary btn-sm"></span>
 			</form>
 				<% elsif r.distributor == '2' && current != 'Safco Dental'%>
-					<td>Safco Dental</td>
+				<span class="cell"></span>
+				<span class="cell"></span>
+				<span class="cell"></span>
+					<span class="cell">Safco Dental</span>
 					<% if min == (r.price.to_f * p.quantity).round(2) %>
-					<td><span class="green">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span></td>
+					<span class="cell"><span class="green">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span></span>
 					<% else %>
-					<td>$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+					<span class="cell">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span>
 					<% end %>
 			<form method="post" action="dist_change/<%= p.id %>">
 			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
           	<input type="hidden"name="_method" value="patch">
           	<input type="hidden" name="price" value="<%= r.price %>">
           	<input type="hidden" name="distributor" value="Safco Dental">
-			<td><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></td>
-			<td><input type="submit" value="Change Distributor" class="btn btn-primary btn-sm"></td>
+			<span class="cell"><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></span>
+			<span class="cell"><input type="submit" value="Change Distributor" class="btn btn-primary btn-sm"></span>
 			</form>
 				<% elsif r.distributor == '3'  && current != 'Darby Dental'%>
-					<td>Darby Dental</td>
+				<span class="cell"></span>
+				<span class="cell"></span>
+				<span class="cell"></span>
+					<span class="cell">Darby Dental</span>
 					<% if min == (r.price.to_f * p.quantity).round(2) %>
-					<td><span class="green">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span></td>
+					<span class="cell"><span class="green">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span></span>
 					<% else %>
-					<td>$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+					<span class="cell">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span>
 					<% end %>
 			<form method="post" action="dist_change/<%= p.id %>">
 			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
           	<input type="hidden"name="_method" value="patch">
           	<input type="hidden" name="price" value="<%= r.price %>">
           	<input type="hidden" name="distributor" value="Darby Dental">
-			<td><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></td>
-			<td><input type="submit" value="Change Distributor" class="btn btn-primary btn-sm"></td>
+			<span class="cell"><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></span>
+			<span class="cell"><input type="submit" value="Change Distributor" class="btn btn-primary btn-sm"></span>
 			</form>
 				<% elsif r.distributor == '4'  && current != 'Henry Schein'%>
-					<td>Henry Schein</td>
+				<span class="cell"></span>
+				<span class="cell"></span>
+				<span class="cell"></span>
+					<span class="cell">Henry Schein</span>
 					<% if min == (r.price.to_f * p.quantity).round(2) %>
-					<td><span class="green">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span></td>
+					<span class="cell"><span class="green">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span></span>
 					<% else %>
-					<td>$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+					<span class="cell">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span>
 					<% end %>
 			<form method="post" action="dist_change/<%= p.id %>">
 			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
           	<input type="hidden"name="_method" value="patch">
           	<input type="hidden" name="price" value="<%= r.price %>">
           	<input type="hidden" name="distributor" value="Henry Schein">
-			<td><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></td>
-			<td><input type="submit" value="Change Distributor" class="btn btn-primary btn-sm"></td>
+			<span class="cell"><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></span>
+			<span class="cell"><input type="submit" value="Change Distributor" class="btn btn-primary btn-sm"></span>
 			</form>
 				<% elsif r.distributor == '5'  && current != 'Benco Dental'%>
-					<td>Benco Dental</td>
+				<span class="cell"></span>
+				<span class="cell"></span>
+				<span class="cell"></span>
+					<span class="cell">Benco Dental</span>
 					<% if min == (r.price.to_f * p.quantity).round(2) %>
-					<td><span class="green">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span></td>
+					<span class="cell"><span class="green">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span></span>
 					<% else %>
-					<td>$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+					<span class="cell">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span>
 					<% end %>
 			<form method="post" action="dist_change/<%= p.id %>">
 			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
           	<input type="hidden"name="_method" value="patch">
           	<input type="hidden" name="price" value="<%= r.price %>">
           	<input type="hidden" name="distributor" value="Benco Dental">
-			<td><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></td>
-			<td><input type="submit" value="Change Distributor" class="btn btn-primary btn-sm"></td>
+			<span class="cell"><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></span>
+			<span class="cell"><input type="submit" value="Change Distributor" class="btn btn-primary btn-sm"></span>
 			</form>
 				<% end %>
-			</tr>
+			</div>
 			<% end %>
 			<% end %>
-			<tr class="formRow">
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>Total: <span class="green"><%= number_to_currency(@total) %></span></td>
-				<td>
+			<div class="cartRow formRow">
+				<span class="cell"></span>
+				<span class="cell"></span>
+				<span class="cell"></span>
+				<span class="cell"></span>
+				<span class="cell"></span>
+				<span class="cell">Total: <span class="green"><%= number_to_currency(@total) %></span></span>
+				<span class="cell">
 					<form action="/checkout" method="post">
 					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 					<input name="id" value="<%= @c.id %>" type="hidden">
 					<input type="submit" value="Check Out" class="btn btn-primary btn-sm">
 					</form>
-				</td>
-			</tr>
-		</tbody>
-</table>
+				</span>
+			</div>
+</div>
 <% end %>
 </div>
