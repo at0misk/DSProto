@@ -2,13 +2,13 @@ class CartsController < ApplicationController
   def index
   end
   def view
-    @found = false
     session[:front_door] = true
   	@c = Cart.find_by(user_id: session[:user_id])
     # begin price scrape
     j = 0
     k = 0
     @c.products.each do |p|
+    @found = false
     @viewPrices = {}
     @priceParams = {}
     @queryString = params['id'].to_s
