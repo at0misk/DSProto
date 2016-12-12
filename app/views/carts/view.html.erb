@@ -50,6 +50,12 @@
 		<tbody>
 			<% @total = 0 %>
 			<% @c.products.each do |p| %>
+			<% min = (p.price.to_f * p.quantity).round(2) %>
+			<% p.prices.each do |r| %>
+				<% if (r.price.to_f * p.quantity).round(2) < min %>
+				<% min = (r.price.to_f * p.quantity).round(2) %>
+				<% end %>
+			<% end %>
 			<tr class="bg-info">
 			<td><a href='/products/<%= p.distributor_number %>/<%= p.name %>/<%= p.manufacturer %>/<%= p.manufacturer_number %>'><%= p.name %></td>
 			<td><%= p.manufacturer %></td>
@@ -60,7 +66,11 @@
 			<% else %>
 			<% @finalPrice = (p.price.to_f * p.quantity).round(2) %>
 			<% @total += @finalPrice %>
+			<% if min == (p.price.to_f * p.quantity).round(2) %>
+			<td><span class="green">$<%= number_with_precision(p.price.to_f * p.quantity.to_i, :precision => 2) %></span></td>
+			<% else %>
 			<td>$<%= number_with_precision(p.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+			<% end %>
 			<% end %>
 			<form method="post" action="carts/<%= p.id %>">
 			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
@@ -82,7 +92,11 @@
 				<td></td>
 				<% if r.distributor == '1' && current != 'Patterson Dental'%>
 					<td>Patterson Dental</td>
+					<% if min == (r.price.to_f * p.quantity).round(2) %>
+					<td><span class="green">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span></td>
+					<% else %>
 					<td>$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+					<% end %>
 			<form method="post" action="dist_change/<%= p.id %>">
 			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
           	<input type="hidden"name="_method" value="patch">
@@ -93,7 +107,11 @@
 			</form>
 				<% elsif r.distributor == '2' && current != 'Safco Dental'%>
 					<td>Safco Dental</td>
+					<% if min == (r.price.to_f * p.quantity).round(2) %>
+					<td><span class="green">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span></td>
+					<% else %>
 					<td>$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+					<% end %>
 			<form method="post" action="dist_change/<%= p.id %>">
 			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
           	<input type="hidden"name="_method" value="patch">
@@ -104,7 +122,11 @@
 			</form>
 				<% elsif r.distributor == '3'  && current != 'Darby Dental'%>
 					<td>Darby Dental</td>
+					<% if min == (r.price.to_f * p.quantity).round(2) %>
+					<td><span class="green">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span></td>
+					<% else %>
 					<td>$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+					<% end %>
 			<form method="post" action="dist_change/<%= p.id %>">
 			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
           	<input type="hidden"name="_method" value="patch">
@@ -115,7 +137,11 @@
 			</form>
 				<% elsif r.distributor == '4'  && current != 'Henry Schein'%>
 					<td>Henry Schein</td>
+					<% if min == (r.price.to_f * p.quantity).round(2) %>
+					<td><span class="green">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span></td>
+					<% else %>
 					<td>$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+					<% end %>
 			<form method="post" action="dist_change/<%= p.id %>">
 			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
           	<input type="hidden"name="_method" value="patch">
@@ -126,7 +152,11 @@
 			</form>
 				<% elsif r.distributor == '5'  && current != 'Benco Dental'%>
 					<td>Benco Dental</td>
+					<% if min == (r.price.to_f * p.quantity).round(2) %>
+					<td><span class="green">$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></span></td>
+					<% else %>
 					<td>$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+					<% end %>
 			<form method="post" action="dist_change/<%= p.id %>">
 			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
           	<input type="hidden"name="_method" value="patch">
