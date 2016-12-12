@@ -155,7 +155,7 @@ class ProductsController < ApplicationController
 	end
 	def create
 		@cart = Cart.find_by(user_id: session[:user_id])
-		@p = Product.where(cart_id: @cart.id, name: params['name'])
+		@p = Product.where(cart_id: @cart.id, name: params['name'], distributor: params['distributor'])
 		if @p.empty?
 			@product = Product.new(cart_id: @cart.id, name: params['name'], price: params['price'], quantity: params['quantity'], manufacturer: params['manufacturer'], manufacturer_number: params['manufacturer_number'], distributor: params['distributor'], distributor_number: params['distributor_number'])
 			if @product.save
@@ -180,5 +180,10 @@ class ProductsController < ApplicationController
 		session[:front_door] = true
 		@results = Prod.where("name LIKE ? OR manufacturer LIKE ? OR manufacturer_number LIKE ? OR product_detail LIKE ? OR code LIKE ?", "%#{session[:searchP]}%","%#{session[:searchP]}%","%#{session[:searchP]}%","%#{session[:searchP]}%","%#{session[:searchP]}%")
 		render :json => @results
+	end
+	def dist
+	    @p = Product.find(params['id'])
+	    @p.update(quantity: params['quantity'], price: params['price'], distributor: params['distributor'])
+	    redirect_to :back
 	end
 end

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   delete 'carts/:id' => 'carts#delete'
   get 'logout' => 'sessions#destroy'
   patch 'users' => 'users#update'
+  patch 'dist_change/:id' => 'products#dist'
 
   get 'sessions/index'
 

@@ -26,6 +26,9 @@
 	.btn-danger{
 		margin-top: 3%;
 	}
+	table .btn{
+		width: 142px;
+	}
 </style>
 <div class="table-responsive cart-div">
 	<% if @c.products.empty? %>
@@ -36,9 +39,9 @@
 		<thead>
 			<tr>
 				<td>Name</td>
-				<td>Distributor</td>
 				<td>Manufacturer</td>
 				<td>Manufacturer Number</td>
+				<td>Distributor</td>
 				<td>Price</td>
 				<td>Quantity</td>
 				<td>Action</td>
@@ -47,11 +50,12 @@
 		<tbody>
 			<% @total = 0 %>
 			<% @c.products.each do |p| %>
-			<tr>
-			<td><%= p.name %></td>
-			<td><%= p.distributor %></td>
+			<tr class="bg-info">
+			<td><a href='/products/<%= p.distributor_number %>/<%= p.name %>/<%= p.manufacturer %>/<%= p.manufacturer_number %>'><%= p.name %></td>
 			<td><%= p.manufacturer %></td>
 			<td><%= p.manufacturer_number %></td>
+			<td><%= p.distributor %></td>
+			<% current = p.distributor %>
 			<% if p.price == nil or p.quantity == nil %>
 			<% else %>
 			<% @finalPrice = (p.price.to_f * p.quantity).round(2) %>
@@ -70,8 +74,71 @@
 			<input type="submit" value="Remove Item" class="btn btn-danger btn-sm">
 			</form>
 			</td>
-			<% end %>
 			</tr>
+			<% p.prices.each do |r| %>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<% if r.distributor == '1' && current != 'Patterson Dental'%>
+					<td>Patterson Dental</td>
+					<td>$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+			<form method="post" action="dist_change/<%= p.id %>">
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+          	<input type="hidden"name="_method" value="patch">
+          	<input type="hidden" name="price" value="<%= r.price %>">
+          	<input type="hidden" name="distributor" value="Patterson Dental">
+			<td><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></td>
+			<td><input type="submit" value="Change Distributor" class="btn btn-primary btn-sm"></td>
+			</form>
+				<% elsif r.distributor == '2' && current != 'Safco Dental'%>
+					<td>Safco Dental</td>
+					<td>$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+			<form method="post" action="dist_change/<%= p.id %>">
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+          	<input type="hidden"name="_method" value="patch">
+          	<input type="hidden" name="price" value="<%= r.price %>">
+          	<input type="hidden" name="distributor" value="Safco Dental">
+			<td><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></td>
+			<td><input type="submit" value="Change Distributor" class="btn btn-primary btn-sm"></td>
+			</form>
+				<% elsif r.distributor == '3'  && current != 'Darby Dental'%>
+					<td>Darby Dental</td>
+					<td>$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+			<form method="post" action="dist_change/<%= p.id %>">
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+          	<input type="hidden"name="_method" value="patch">
+          	<input type="hidden" name="price" value="<%= r.price %>">
+          	<input type="hidden" name="distributor" value="Darby Dental">
+			<td><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></td>
+			<td><input type="submit" value="Change Distributor" class="btn btn-primary btn-sm"></td>
+			</form>
+				<% elsif r.distributor == '4'  && current != 'Henry Schein'%>
+					<td>Henry Schein</td>
+					<td>$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+			<form method="post" action="dist_change/<%= p.id %>">
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+          	<input type="hidden"name="_method" value="patch">
+          	<input type="hidden" name="price" value="<%= r.price %>">
+          	<input type="hidden" name="distributor" value="Henry Schein">
+			<td><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></td>
+			<td><input type="submit" value="Change Distributor" class="btn btn-primary btn-sm"></td>
+			</form>
+				<% elsif r.distributor == '5'  && current != 'Benco Dental'%>
+					<td>Benco Dental</td>
+					<td>$<%= number_with_precision(r.price.to_f * p.quantity.to_i, :precision => 2) %></td>
+			<form method="post" action="dist_change/<%= p.id %>">
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+          	<input type="hidden"name="_method" value="patch">
+          	<input type="hidden" name="price" value="<%= r.price %>">
+          	<input type="hidden" name="distributor" value="Benco Dental">
+			<td><input type="number" name="quantity" value="<%= p.quantity %>" class="quant" min="1"></td>
+			<td><input type="submit" value="Change Distributor" class="btn btn-primary btn-sm"></td>
+			</form>
+				<% end %>
+			</tr>
+			<% end %>
+			<% end %>
 			<tr class="formRow">
 				<td></td>
 				<td></td>
