@@ -135,4 +135,40 @@ class CartsController < ApplicationController
 	Product.where(cart_id: @c.id).destroy_all
 	redirect_to :back
   end
+  def whole
+    @c = Cart.find_by(user_id: session[:user_id])
+    @c.products.each do |p|
+      p.prices.each do |r|
+        if r.distributor == params['id']
+          p.update(price: r.price, distributor: params['distributor'])
+        end
+      end
+    end
+    redirect_to :back
+  end
+def cheap
+  @c = Cart.find_by(user_id: session[:user_id])
+  @c.products.each do |p|
+    min = p.prices.first.price
+    dist = 'Patterson Dental'
+    p.prices.each do |s|
+      if s.price.to_f < min.to_f 
+        min = s.price
+        if s.distributor == '1'
+          dist = 'Patterson Dental'
+        elsif s.distributor == '2'
+          dist = 'Safco Dental'
+        elsif s.distributor == '3'
+          dist = 'Darby Dental'
+        elsif s.distributor == '4'
+          dist = 'Henry Schein'
+        elsif s.distributor == '5'
+          dist = 'Benco Dental'
+        end
+      end
+    end
+  p.update(price: min, distributor: dist)
+end
+redirect_to :back
+end
 end

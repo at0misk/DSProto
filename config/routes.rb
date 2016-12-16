@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get 'logout' => 'sessions#destroy'
   patch 'users' => 'users#update'
   patch 'dist_change/:id' => 'products#dist'
+  patch 'whole_dist/:id' => 'carts#whole'
+  patch 'whole_cheap' => 'carts#cheap'
 
   get 'sessions/index'
 
