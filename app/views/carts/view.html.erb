@@ -148,6 +148,7 @@
 				<% min = (r.price.to_f * p.quantity).round(2) %>
 				<% end %>
 			<% end %>
+			<div class="cartRow">
 			<span class="cell"><a href='/products/<%= p.distributor_number %>/<%= p.name %>/<%= p.manufacturer %>/<%= p.manufacturer_number %>'><%= p.name %></a></span>
 			<span class="cell"><%= p.manufacturer %></span>
 			<span class="cell"><%= p.manufacturer_number %></span>
@@ -380,6 +381,7 @@
 			<input type="submit" value="Remove Item" class="btn btn-danger btn-sm">
 			</form>
 			</span>
+		</div>
 			<% end %>
 			<div class="cartRow formRow">
 				<span class="cell"></span>
