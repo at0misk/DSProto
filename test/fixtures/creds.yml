@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  patterson_u: MyString
+  patterson_p: MyString
+  safco_u: MyString
+  safco_p: MyString
+  darby_u: MyString
+  darby_p: MyString
+  henry_u: MyString
+  henry_p: MyString
+  benco_u: MyString
+  benco_p: MyString
+
+two:
+  user_id: 
+  patterson_u: MyString
+  patterson_p: MyString
+  safco_u: MyString
+  safco_p: MyString
+  darby_u: MyString
+  darby_p: MyString
+  henry_u: MyString
+  henry_p: MyString
+  benco_u: MyString
+  benco_p: MyString

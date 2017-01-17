@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
 	def view
+		@user = User.find(session[:user_id])
+		@creds = @user.creds
 		session[:front_door] = true
 		@man = params['man']
 		@num = params['num']
@@ -43,13 +45,49 @@ class ProductsController < ApplicationController
 		j = 0
 		k = 0
 		@priceParams.each do |key, val|
+				if val['site_id'] == '1'
+					if @creds[0]['patterson_u'] == nil
+						next
+					else
+					user_cred = @creds[0]['patterson_u']
+					user_p = @creds[0]['patterson_p']
+					end
+				elsif val['site_id'] == '2'
+					if @creds[0]['safco_u'] == nil
+						next
+					else
+					user_cred = @creds[0]['safco_u']
+					user_p = @creds[0]['safco_p']
+					end
+				elsif val['site_id'] == '3'
+					if @creds[0]['darby_u'] == nil
+						next
+					else
+					user_cred = @creds[0]['darby_u']
+					user_p = @creds[0]['darby_p']
+					end
+				elsif val['site_id'] == '4'
+					if @creds[0]['henry_u'] == nil
+						next
+					else
+					user_cred = @creds[0]['henry_u']
+					user_p = @creds[0]['henry_p']
+					end
+				elsif val['site_id'] == '5'
+					if @creds[0]['benco_u'] == nil
+						next
+					else
+					user_cred = @creds[0]['benco_u']
+					user_p = @creds[0]['benco_p']
+					end
+				end
 				puts key
 				puts "key"
 				puts "alkdsjfhaklsjdfhlaksdjfh"
 				if val.is_a?(Hash)
 				puts val['site_id']
 				puts val['product_id']
-				@responsePrices = RestClient.post 'http://dentalsquid.proscrapers.com/api/get-prices', {token: "90c3562d7d962f37bee2185c2b871fd4d1cfa7f2129617033f14d9c1b2b96730", q: {"#{j}" => {"sid" => val['site_id'], "u" => "abc@gmail.com", "p" => "testing", "ids" => {"0" => val['product_id']}}}}
+				@responsePrices = RestClient.post 'http://dentalsquid.proscrapers.com/api/get-prices', {token: "90c3562d7d962f37bee2185c2b871fd4d1cfa7f2129617033f14d9c1b2b96730", q: {"#{j}" => {"sid" => val['site_id'], "u" => user_cred, "p" => user_p, "ids" => {"0" => val['product_id']}}}}
 				@jsonPrices = JSON.parse @responsePrices
 				puts @jsonPrices['data']
 				finalParams = {}

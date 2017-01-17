@@ -1,0 +1,66 @@
+<style>
+	.container{
+	    width: 50% !important;
+	    margin-top: 1%;
+	}
+	h4{
+		margin-top: 4%;
+  		color: #337ab7;
+	}
+	#sub{
+		margin-top: 2%;
+		margin-bottom: 2%;
+	}
+</style>
+<div class="container">
+<h3>Connect to the following sites to compare prices:</h3>
+<form class="credForm" action="/creds" method="post">
+<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  <h4>Patterson Dental</h4>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Username or Email</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username or email" name="pEmail">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="pPassword">
+  </div>
+  <h4>Safco Dental</h4>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Username or Email</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username or email" name="sEmail">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="sPassword">
+  </div>
+  <h4>Darby Dental</h4>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Username or Email</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username or email" name="dEmail">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="dPassword">
+  </div>
+  <h4>Henry Schein</h4>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Username or Email</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username or email" name="hEmail">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="hPassword">
+  </div>
+  <h4>Benco Dental</h4>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Username or Email</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username or email" name="bEmail">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="bPassword">
+  </div>
+  <button type="submit" class="btn btn-primary" id="sub">Submit</button>
+</form>
+</div>

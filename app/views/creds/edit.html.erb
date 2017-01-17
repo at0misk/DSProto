@@ -1,0 +1,53 @@
+<h1>Edit Distributor Connections</h1>
+<div class="col-md-4">
+<form class="credForm" action="/creds" method="post">
+<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+<input name="_method" value="PATCH" type="hidden">
+  <h4>Patterson Dental</h4>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Username or Email</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= @retCred['pEmail'] %>" name="pEmail">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" value="<%= @retCred['pPassword'] %>" name="pPassword">
+  </div>
+  <h4>Safco Dental</h4>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Username or Email</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= @retCred['sEmail'] %>" name="sEmail">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" value="<%= @retCred['sPassword'] %>" name="sPassword">
+  </div>
+  <h4>Darby Dental</h4>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Username or Email</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= @retCred['dEmail'] %>" name="dEmail">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" value="<%= @retCred['dPassword'] %>" name="dPassword">
+  </div>
+  <h4>Henry Schein</h4>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Username or Email</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= @retCred['hEmail'] %>" name="hEmail">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" value="<%= @retCred['hPassword'] %>" name="hPassword">
+  </div>
+  <h4>Benco Dental</h4>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Username or Email</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= @retCred['bEmail'] %>" name="bEmail">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" value="<%= @retCred['bPassword'] %>" name="bPassword">
+  </div>
+  <button type="submit" class="btn btn-primary" id="sub">Update</button>
+</form>
+</div>

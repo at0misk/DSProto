@@ -36,6 +36,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    aes (0.5.0)
     angular-turbolinks (0.1.0)
       coffee-rails
       turbolinks
@@ -167,6 +168,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aes
   angular-turbolinks (~> 0.1.0)
   angularjs-rails
   bcrypt (~> 3.1.7)

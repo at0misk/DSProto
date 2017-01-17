@@ -43,6 +43,10 @@ Rails.application.routes.draw do
   get 'categories/:name/' => 'categories#view', :constraints => {:name => /.*/}
   get 'products/:id/:name/:man/:num' => 'products#view', :constraints => {:man => /.*/, :num => /.*/, :name => /([^\/])+?/}
   post 'login' => 'sessions#login'
+  get 'cred/new' => 'creds#new'
+  post 'creds' => 'creds#create'
+  get 'creds/edit' => 'creds#edit'
+  patch 'creds' => 'creds#update'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

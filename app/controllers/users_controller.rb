@@ -39,12 +39,13 @@ class UsersController < ApplicationController
   def create
   	@user = User.new(user_params)
   	if @user.save
-  		session[:user_id] = @user.id
+  		session[:cred_user_id] = @user.id
   		@c = Cart.find_by(user_id: @user.id)
   			if @c.nil?
   				Cart.create(user_id: @user.id)
   			end
-  		redirect_to '/categories'
+  		# redirect_to '/categories'
+  		redirect_to '/cred/new'
   	else
   		flash[:errors] = @user.errors.full_messages
   		redirect_to :back
