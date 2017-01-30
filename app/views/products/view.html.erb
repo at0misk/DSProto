@@ -43,12 +43,12 @@
 <h3>Manufacturer: <%= @man %></h3>
 <h3>Manufacturer Number: <%= @num %></h3>
 <h3>Distributor Number: <%= @code %></h3>
-<% min = @viewPrices["0"]["price"] %>
+<% min = number_with_precision(@viewPrices["0"]["price"], :precision => 2) %>
 <% @viewPrices.each do |key, val| %>
 <% if val.is_a?(Hash) %>
 <% val.each do |key, val| %>
 <% if key == 'price' %>
-	<% if val.to_i < min.to_i %>
+	<% if number_with_precision(val, :precision => 2) < number_with_precision(min, :precision => 2) %>
 		<% min = val %>
 	<% end %>
 <% end %>
