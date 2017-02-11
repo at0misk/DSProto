@@ -35,7 +35,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'users#index'
-  root 'sessions#about'
+  root 'sessions#landing'
   get 'about' => 'sessions#about'
   get 'signup' => 'sessions#new'
   post 'signup' => 'users#create'
@@ -47,6 +47,8 @@ Rails.application.routes.draw do
   post 'creds' => 'creds#create'
   get 'creds/edit' => 'creds#edit'
   patch 'creds' => 'creds#update'
+  get 'landing' => 'sessions#landing'
+  get 'friend' => 'sessions#friend'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

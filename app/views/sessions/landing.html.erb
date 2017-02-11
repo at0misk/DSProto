@@ -1,0 +1,37 @@
+<style>
+.prodSS{
+	margin-left: 1%;
+    padding: 0% 1%;
+    width: 100px;
+    height: 40px;
+}
+.searchForm{
+	margin-top: 2%;
+	font-size: 2em;
+}
+/*.pbox{
+	width: 80%;
+}*/
+</style>
+<h1><span class="blue">Dental</span> Squid</h1>
+<div class="row">
+<div class="col-md-8">
+<p>Welcome to Dental Squid, the site that saves you time and money while maintaining your current service and relationships.</p>
+
+<p>To get started search any product by name, type, category or part number.  Dental Squid will give you a list of all the products in any of our 5 distributor catalogs, along with a description and price information.  Once you choose a product, Dental Squid will tell you which of the 5 major distributors have that product and how much they charge.  You instantly have all the information you need to make an informed purchase decision.</p> 
+
+<p>Don’t waste any more time and money; use Dental Squid!</p> 
+<p>Same quality.  Same service.  Lower price.</p>
+</div>
+</div>
+
+<% if session[:front_door] == true %>
+<% else %>
+<div class="searchForm">
+<form action="/search" method="POST">
+Search All Products: <input type="text" name="sparams">
+<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+<input type="submit" value="Search" class="prodSS btn btn-primary btn-lg">
+</form>
+</div>
+<% end %>

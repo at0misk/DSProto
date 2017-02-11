@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
 	  			if @c.nil?
 	  				Cart.create(user_id: @user.id)
 	  			end
-  			redirect_to '/about'
+  			redirect_to '/landing'
 	  	else
 	  		flash[:errors] = ['Invalid email / password combination']
 	  		redirect_to :back
@@ -33,5 +33,9 @@ class SessionsController < ApplicationController
   def destroy
     session[:user_id] = nil
     redirect_to '/sessions/index'
+  end
+  def landing
+  end
+  def friend
   end
 end
