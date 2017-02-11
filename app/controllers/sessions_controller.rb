@@ -25,10 +25,13 @@ class SessionsController < ApplicationController
   def learn
   end
   def pricing
+    session[:front_door] = true
   end
   def contact
+    session[:front_door] = true
   end
   def cart
+    session[:front_door] = true
   end
   def destroy
     session[:user_id] = nil
@@ -37,5 +40,6 @@ class SessionsController < ApplicationController
   def landing
   end
   def friend
+    session[:front_door] = true
   end
 end
