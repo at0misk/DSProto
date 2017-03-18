@@ -1,0 +1,26 @@
+<style>
+	td{
+		padding: 2%;
+	}
+</style>
+<h2>Recent Order History</h2>
+<h3>Safco Dental</h3>
+<table>
+<tbody>
+	<tr>
+		<td>Product</td>
+		<td>Price</td>
+	</tr>
+<% x = 0 %>
+<% @returnArrSafco.each do |val| %>
+	<tr>
+		<td><%= val['name'] %></td>
+		<td><%= val['price'] %></td>
+	</tr>
+	<% x += 1 %>
+	<% if x > 4 %>
+		<% break %>
+	<% end %>
+<% end %>
+</tbody>
+</table>

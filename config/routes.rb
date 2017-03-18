@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   patch 'creds' => 'creds#update'
   get 'landing' => 'sessions#landing'
   get 'friend' => 'sessions#friend'
+  get 'history' => 'products#history'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

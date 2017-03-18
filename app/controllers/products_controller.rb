@@ -224,4 +224,58 @@ class ProductsController < ApplicationController
 	    @p.update(quantity: params['quantity'], price: params['price'], distributor: params['distributor'])
 	    redirect_to :back
 	end
+	def history
+		@returnArrSafco = []
+		@user = User.find(session[:user_id])
+		@creds = @user.creds
+		session[:front_door] = true
+		j = 1
+		k = 1
+		user_cred = ""
+		user_p = ""
+		for n in 1..5
+			if n == 1
+				user_cred = @creds[0]['patterson_u']
+				user_p = @creds[0]['patterson_p']
+			elsif n == 2
+				user_cred = @creds[0]['safco_u']
+				user_p = @creds[0]['safco_p']
+			elsif n == 3
+				user_cred = @creds[0]['darby_u']
+				user_p = @creds[0]['darby_p']
+			elsif n == 4
+				user_cred = @creds[0]['henry_u']
+				user_p = @creds[0]['henry_p']
+			elsif n == 5
+				user_cred = @creds[0]['benco_u']
+				user_p = @creds[0]['benco_p']
+			end
+			puts user_cred
+			puts user_p
+			@response = RestClient.post 'http://dentalsquid.proscrapers.com/api/get-order-history', {token: "90c3562d7d962f37bee2185c2b871fd4d1cfa7f2129617033f14d9c1b2b96730", q: {"#{j}" => {"sid" => "#{n}", "u" => "#{user_cred}", "p" => "#{user_p}"}}}
+			# @json = JSON.parse @response
+			# @json = JSON.parse @json['data']
+			@json = JSON.parse @response
+			# @jsonData = @json['data']['products']
+			puts "=======^^^======"
+			if n == 2
+			@json['data'].each do |val|
+				val['products'].each do |x|
+					@inner = {}
+					puts x['name']
+					@inner['name'] = x['name']
+					@inner['price'] = x['price']
+					@returnArrSafco << @inner
+				end
+			end
+			# fail
+				# @returnArr = @json['data'][1]
+			end
+			# puts @data['products']
+			j += 1
+			puts j
+			puts n
+			puts "J ^^^^"
+		end
+	end
 end
