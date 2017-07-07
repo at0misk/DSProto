@@ -174,7 +174,7 @@ class ProductsController < ApplicationController
 	# puts 'BREAK =============================================================='
 	@json = JSON.parse @json['data']
 	# puts @json['products']
-	# Prod.destroy_all
+	Prod.destroy_all
 	@json['products'].each do |val|
 		val['name'].tr!('/////////////', '')
 		val['name'].tr!("\\\\\\\\\\\\\\", '')
